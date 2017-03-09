@@ -1,4 +1,4 @@
-require "zonescan/version"
+require_relative "zonescan/version"
 
 module Zonescan
   # Your code goes here...
