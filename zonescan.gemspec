@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Zonescan::VERSION
   spec.authors       = ["georg"]
   spec.email         = ["georg@gj.ee"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{utility to scan list of domains for running services}
+  spec.description   = %q{utility to scan list of domains for running services}
   spec.homepage      = ""
   spec.license       = "MIT"
 
