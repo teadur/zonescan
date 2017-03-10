@@ -1,13 +1,12 @@
 # Zonescan
 
 zonescan - Zone Scan
-simple cli utility to scan whole zone for running services
+simple cli utility to scan provided list of domains for running services
 
-TOOD:
-*take file(csv) as input.
-*take file(zonefile) as input (parse zonefile)
-*resolv domains inside input
+## TODO:
+*take file(txt/csv/zonefile) as input.
 *try to access resolved domain via http(s) and record the response_code
+*figure out if domain is dnssec signed
 *find / add other services to check for
 *output domain lists from results
 *output statistics of the results
