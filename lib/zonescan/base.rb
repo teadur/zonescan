@@ -10,7 +10,12 @@ module Zonescan
     end
 
     def self.read
-      File.read(File.expand_path('data/first.txt'))
+        # TODO: how to read file so that tests dont fail ( path issues )
+#      File.read(File.expand_path('../data/first.txt', __FILE__))
+      File.read(File.expand_path('../data/first.txt'))
+
+      #tee = File.expand_path("../../", __FILE__)
+      #ile.read(tee/first.txt)
     end
   end
 end
