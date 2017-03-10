@@ -1,18 +1,16 @@
 module Zonescan
+  # Base class loads the input file and processes it
   class Base
     def self.source
-      @source ||= self.read
+      @source ||= read
     end
 
     def self.processed_source
-      @processed_source ||= self.source.split("\n").uniq
+      @processed_source ||= source.split("\n").uniq
     end
-
-    private
 
     def self.read
       File.read(File.expand_path('data/first.txt'))
     end
-
   end
 end
