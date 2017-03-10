@@ -3,3 +3,8 @@ neti.ee
 google.ee
 olematu.ee
 teineolematu.ee
+kolmas.ee
+neljas.ee
+viies.ee
+sodi
+dnssec.ee

@@ -10,7 +10,7 @@ describe Zonescan::Base do
       subject.must_respond_to(:source)
     end
  
-    it "must have the dracula file as a source" do
+    it "must have the example file as a source" do
       subject.source.must_be_instance_of(String)
     end
  
