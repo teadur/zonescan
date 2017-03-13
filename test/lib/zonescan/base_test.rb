@@ -16,5 +16,6 @@ describe Zonescan::Base do
     it 'must correctly remove empty lines' do
       subject.processed_source.wont_include(nil)
     end
+
   end
 end

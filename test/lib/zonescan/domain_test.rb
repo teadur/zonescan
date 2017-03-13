@@ -16,4 +16,8 @@ describe Zonescan::Domain do
     subject.domains(10).size.must_equal(10)
   end
 
+  it 'must discard names without dot' do
+    subject.validate('test')
+  end
+
 end
