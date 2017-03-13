@@ -9,15 +9,24 @@ module Zonescan
       processed_source.sample(n)
     end
 
-    def self.validate(name = "test")
+    def self.validate(name = 'test')
       if name['.'].nil?
-      # puts "missing dot"
+        # puts "missing dot"
         return false
       else
-      #  puts "dot is present"
-        return true
+        # check if the name resolves
+        if resolv(name).equal?(true)
+          return true
+        else return false
         end
-
+      end
+    end
+    def self.resolv(name)
+      Resolv.getaddress(name)
+      return true
+    rescue
+      puts 'ei lahendu'
+      return false
     end
   end
 end

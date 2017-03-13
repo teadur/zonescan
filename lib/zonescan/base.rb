@@ -10,13 +10,12 @@ module Zonescan
     end
 
     def self.read
-        # TODO: ugly fix for path issue, figure out correct solution for the problem
-      begin
+      # TODO: ugly fix for path issue
+      # figure out correct solution for the problem
       File.read(File.expand_path('../data/first.txt'))
-      rescue
-        puts "io error";
-        File.read(File.expand_path('./data/first.txt'))
-      end
+    rescue
+      puts 'io error'
+      File.read(File.expand_path('./data/first.txt'))
     end
   end
 end
