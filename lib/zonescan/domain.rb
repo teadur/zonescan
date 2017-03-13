@@ -26,7 +26,7 @@ module Zonescan
       Resolv.getaddress(name)
       return true
     rescue
-      puts 'ei lahendu'
+      puts "doesnot resolve #{name}"
       return false
     end
 

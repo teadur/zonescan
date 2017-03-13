@@ -10,13 +10,15 @@ module Zonescan
   Failed = Array.new
   Completed = Array.new
   Untested = Array.new
+
   puts __FILE__
   # name = Domain.domain
   # puts name
-  Domain.domains_all
+  execute = Domain.domains_all
+  total = execute.count()
   Untested.each do |name|
   if Domain.validate(name) == true
-    puts 'lets call out scanner for that name'
+    puts "lets call out scanner for that name #{name}"
     rvalue =  Httpscan.check(name)
     # add domains with return code 200-500 to Completed list
     # TODO: Figure out exact return codes i care about
@@ -25,9 +27,9 @@ module Zonescan
     end
   else
     Failed.push(name)
-    puts 'lets remove that name from uncompleted list / add it to failed list'
+    puts "lets remove that name from uncompleted list / add it to failed list #{name}"
   end
 
   end
-  puts "Failed: #{Failed} \nCompleted: #{Completed}"
+  puts "Total: #{total}\nFailed (#{Failed.count}): #{Failed} \nCompleted(#{Completed.count}): #{Completed}"
 end
