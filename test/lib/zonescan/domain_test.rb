@@ -17,7 +17,7 @@ describe Zonescan::Domain do
   end
 
   it 'must discard names without dot' do
-    subject.validate('test')
+    subject.validate('test').must_equal false
   end
 
 end
