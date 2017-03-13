@@ -14,7 +14,7 @@ module Zonescan
       # figure out correct solution for the problem
       File.read(File.expand_path('../data/first.txt'))
     rescue
-      puts 'io error'
+      # puts 'io error'
       File.read(File.expand_path('./data/first.txt'))
     end
   end

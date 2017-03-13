@@ -21,12 +21,20 @@ module Zonescan
         end
       end
     end
+
     def self.resolv(name)
       Resolv.getaddress(name)
       return true
     rescue
       puts 'ei lahendu'
       return false
+    end
+
+    def self.domains_all
+      processed_source.each do |item|
+        Untested.push(item)
+        puts item
+      end
     end
   end
 end
