@@ -6,7 +6,8 @@ require 'curb'
 require 'resolv'
 # Zonescan::
 module Zonescan
-  # Your code goes here...
+  beginning_time = Time.now
+  # TODO: create run function and move to instance variables
   Failed = Array[]
   Completed = Array[]
   Untested = Array[]
@@ -19,10 +20,13 @@ module Zonescan
   Untested.each do |name|
     if Domain.validate(name) == true
       puts "lets call out scanner for that name #{name}"
-      rvalue =  Httpscan.check(name)
+      rvalue =  Httpscan.check(name).to_i
       # add domains with return code 200-500 to Completed list
       # TODO: Figure out exact return codes i care about
-      Completed.push(name) if rvalue >= 200 && rvalue <= 500
+      result = Hash.new
+      result[:name] = name
+      result[:rcode] = rvalue
+      Completed.push(result) if rvalue >= 200 && rvalue <= 500
   else
     Failed.push(name)
     puts "remove name from uncompleted list / add it to failed list #{name}"
@@ -31,4 +35,6 @@ module Zonescan
   end
   puts "Total: #{total}\nFailed (#{Failed.count}): #{Failed} \n"
   puts "Completed(#{Completed.count}): #{Completed}"
+  end_time = Time.now
+  puts "Time elapsed #{(end_time - beginning_time)} seconds"
 end
