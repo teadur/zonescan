@@ -8,7 +8,7 @@ module Zonescan
     #attr_accessor :Untested
     #end
 
-    def run()
+    def self.run
       require 'optparse'
 
       ARGV << '-h' if ARGV.empty?
@@ -35,9 +35,14 @@ module Zonescan
           files.push a if a !~ /^--.*/
         end
       end
-
+      show = options['show']
 
       puts "cli #{files}"
+      puts "show #{show}"
+      unless show.nil?
+        puts "access datastore and find domain(s)"
+
+      end
     end
 
 

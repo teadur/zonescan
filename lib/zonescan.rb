@@ -31,7 +31,11 @@ module Zonescan
         result[:time] = Time.now
         Completed.push(result) if rvalue >= 200 && rvalue <= 500
       else
-        Failed.push(name)
+        result = Hash.new
+        result[:name] = name
+        result[:reason] = 'Unknown'
+        result[:time] = Time.now
+        Failed.push(result)
         puts "remove name from uncompleted list / add it to failed list #{name}"
       end
 
@@ -40,7 +44,15 @@ module Zonescan
     puts "Completed(#{Completed.count}): #{Completed}"
     end_time = Time.now
     puts "Time elapsed #{(end_time - beginning_time)} seconds"
-
+    # Implement storing of results
+    require 'yaml/store'
+    store = YAML::Store.new('data/store.yml')
+    data = store.transaction { store[:data] }
+    store.transaction do
+      store[(Time.now)] = Completed, Failed
+      #store[:Failed] = Failed
+    end
+    #data[:Completed].push(Completed)
   end
 
 #  Zonescan::Cli.check
