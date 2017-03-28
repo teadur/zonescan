@@ -2,7 +2,13 @@
 module Zonescan
   # Zonescan::Cli
   class Cli
-    def self.run
+    #class << self
+    #attr_accessor :Failed
+    #attr_accessor :Completed
+    #attr_accessor :Untested
+    #end
+
+    def run()
       require 'optparse'
 
       ARGV << '-h' if ARGV.empty?
@@ -33,5 +39,8 @@ module Zonescan
 
       puts "cli #{files}"
     end
-  end
+
+
+
+end
 end
