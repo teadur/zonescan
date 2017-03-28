@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'zonescan/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'zonescan'
+  spec.name          = Zonescan::PROJECT
   spec.version       = Zonescan::VERSION
   spec.authors       = ['georg']
   spec.email         = ['georg@gj.ee']
@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
   spec.add_dependency 'curb'
