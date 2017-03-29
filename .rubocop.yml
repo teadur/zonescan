@@ -1,7 +1,5 @@
-Allcops:
-
 Metrics/LineLength:
   Max: 160
 
 Metrics/MethodLength:
-  Max: 25 # default 10
+  Max: 30 # default 10

@@ -1,8 +1,7 @@
+# Zonescan
 module Zonescan
-  # Base class for Zonescan
-  #class Domain < Base
+  # Domain related functions
   class << self
-    #attr_accessor :Untested
     def domain
       processed_source.sample
     end
@@ -33,9 +32,9 @@ module Zonescan
     end
 
     def domains_all
-      @Untested = Array[]
+      @untested = Array[]
       processed_source.each do |item|
-        @Untested.push(item)
+        @untested.push(item)
         puts item
       end
     end

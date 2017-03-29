@@ -1,5 +1,6 @@
+# Zonesacn
 module Zonescan
-  # Base class loads the input file and processes it
+  # Input / Output related functions
   class << self
     def source
       @source ||= read

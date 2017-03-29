@@ -1,11 +1,11 @@
 module Zonescan
   # Zonescan::Store Class to interact with results store
   class Store
-  #class << self
     require 'yaml/store'
-    def self.initialize
-         store = YAML::Store.new('data/store.yml')
-    end
+    # TODO: figure out why initialize doesnot do what i want ?
+    # def self.initialize
+    #  store = YAML::Store.new('data/store.yml')
+    # end
 
     def self.show(name)
       count = 0
@@ -15,8 +15,9 @@ module Zonescan
           # puts "debug: #{store[current][:name].to_s} and #{name}"
           if store[current][:name].to_s == name
             # puts "if debug: #{store[current][:name]} and #{name}"
+            # display results
             puts store[current]
-            count = count + 1
+            count += 1
           end
 
         end
@@ -24,7 +25,27 @@ module Zonescan
       end
     end # End of show
 
-    def write(*)
+    def self.write(result)
+      require 'yaml/store'
+      store = YAML::Store.new('data/store.yml')
+      # data = store.transaction { store[:data] }
+      store.transaction do
+        id = store.roots.max || 0
+        # puts "id: #{id}"
+
+        # Handle completed domains
+        result.each do |current|
+          id += 1
+
+          # puts "Storing: #{current}"
+          extended = current
+          # TODO: Handle Failed/Completed correctly
+          extended[:status] = 'Completed'
+          extended[:id] = id
+          store[id] = extended
+          puts "Stored: #{store[id]}"
+        end
+      end # End of store transaction
     end # End of write
   end # End of class
 end # End of module
