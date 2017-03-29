@@ -4,13 +4,15 @@ require 'zonescan/store'
 module Zonescan
   # Zonescan::Cli
   # class Cli
-    class << self
+    #class << self < Store
     #attr_accessor :Failed
     #attr_accessor :Completed
     #attr_accessor :Untested
     #end
+    #class < Store
 
-    def cli()
+    #end
+    def self.cli()
       require 'optparse'
 
       ARGV << '-h' if ARGV.empty?
@@ -48,12 +50,14 @@ module Zonescan
 
        # TODO: move to different class/file
        #store = YAML::Store.new('data/store.yml')
-        Store::show(show)
+        Zonescan::Store.show("neti.ee")
+        #show("neti.ee")
+
 
       end
     end
 
 
 
-end
-end
+#end # End of class
+end # End of Module
