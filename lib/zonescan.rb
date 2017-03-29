@@ -49,10 +49,36 @@ module Zonescan
     store = YAML::Store.new('data/store.yml')
     data = store.transaction { store[:data] }
     store.transaction do
-      store[(Time.now)] = Completed, Failed
+	    id = store.roots.max || 0
+	    puts "id: #{id}"
+
+	    Completed.each do |current|
+		    id = id + 1 
+
+		    puts current
+		    store[id] = current
+	    end
+	    Failed.each do |current|
+		   id = id + 1
+		  store[id] = current
+	    end
+	    p store.roots
+	    puts "map:"
+	    p store.roots.map { |id| store[:id] } 
+	    p store[1]
+	    p store[1][:name]
+	    store.roots.each do |current|
+			
+		    puts current
+		    puts store[current][:name]
+		   # puts "data: #{current[:name]} "
+		    #
+	    end
       #store[:Failed] = Failed
     end
+puts	 data
     #data[:Completed].push(Completed)
+  
   end
 
 #  Zonescan::Cli.check
