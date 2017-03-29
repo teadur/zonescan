@@ -1,6 +1,6 @@
 require_relative '../../test_helper'
-describe Zonescan::Base do
-  subject { Zonescan::Base }
+describe Zonescan do
+  subject { Zonescan }
   describe 'reading from file' do
     it 'must have a source' do
       subject.must_respond_to(:source)

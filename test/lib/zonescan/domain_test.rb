@@ -1,8 +1,8 @@
 require_relative '../../test_helper'
 
-describe Zonescan::Domain do
+describe Zonescan do
 
-  subject { Zonescan::Domain }
+  subject { Zonescan }
 
   it 'must return a random domain' do
     subject.domain.must_be_instance_of(String)
