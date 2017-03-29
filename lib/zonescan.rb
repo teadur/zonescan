@@ -52,21 +52,27 @@ module Zonescan
 	    id = store.roots.max || 0
 	    puts "id: #{id}"
 
+      # Handle completed domains
 	    Completed.each do |current|
 		    id = id + 1 
 
-		    puts current
-		    store[id] = current
-	    end
-	    Failed.each do |current|
-		   id = id + 1
-		  store[id] = current
-	    end
+		    puts "Completed: #{current}"
+        extended = current
+        extended[:id] = id
+		    store[id] = extended
+
+        puts "Storing: #{store[id]}"
+      end
+      # TODO: handle Failed & Completed with one function
+	    # Failed.each do |current|
+      # id = id + 1
+		  # store[id] = current
+	    # end
 	    p store.roots
-	    puts "map:"
-	    p store.roots.map { |id| store[:id] } 
-	    p store[1]
-	    p store[1][:name]
+	    #puts "map:"
+	    #p store.roots.map { |id| store[:id] }
+	    #p store[1]
+	    #p store[1][:name]
 	    store.roots.each do |current|
 			
 		    puts current
