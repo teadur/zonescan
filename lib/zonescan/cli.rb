@@ -12,7 +12,7 @@ module Zonescan
     ARGV.options do |opts|
       opts.banner = "Usage: #{PROJECT} [file or files] \n"\
                       "       #{PROJECT} [options]"
-      opts.on('-f', '--files [files]',           Array,     'Comma separated files to check')     { |val| options['files'] = val }
+      opts.on('-f', '--file [file]',           String,     'file to check')     { |val| options['files'] = val }
       # opts.on('-r', '--record',                    TrueClass, 'Record results')         { |val| options['record'] = val }
       opts.on('-s', '--show [name]',           String,     'show saved results of domain')     { |val| options['show'] = val }
 
@@ -34,7 +34,7 @@ module Zonescan
     show = options['show']
     if show.nil?
       # Run check if no show
-      run
+      run(files)
     end
     # puts "cli #{files}"
     # puts "show #{show}"

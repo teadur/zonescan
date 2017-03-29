@@ -2,11 +2,36 @@
 module Zonescan
   # Run function
   class << self
-    def run
+    def source
+      @source ||= read
+    end
+
+    def processed_source
+      @processed_source ||= source.split("\n").uniq
+    end
+
+    def read
+      if @files.nil?
+        # for tests to work
+        @files = "./data/first.txt"
+      end
+      readme = File.expand_path(@files)
+      File.read(readme)
+    rescue Exception => error
+      puts __dir__
+      puts error
+      #readme = File.expand_path(@files)
+      puts readme
+      file_path = File.join((__dir__), '../../data/first.txt')
+      puts "File open error #{error}"
+      exit 1
+    end
+
+    def run(files)
+      @files = files
       @failed = Array[]
       @completed = Array[]
       @untested = Array[]
-
       beginning_time = Time.now
 
       # puts __FILE__
