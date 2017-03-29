@@ -16,9 +16,6 @@ simple cli utility to scan provided list of domains for running services
 
 *output statistics of the results
 
-*persist the results somehow for future usage
-
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -37,7 +34,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+#### Show help
+zonescan
+#### Scan domains from input file
+zonescan -f input.txt
+#### Show recoded results of domain
+zonescan -s domain.tld
+
 
 ## Contributing
 
