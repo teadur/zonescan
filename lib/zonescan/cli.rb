@@ -38,20 +38,17 @@ module Zonescan
         end
       end
       show = options['show']
+      if show.nil?
       run
+      end
       puts "cli #{files}"
       puts "show #{show}"
       unless show.nil?
         puts "access datastore and find domain(s)"
+
        # TODO: move to different class/file
-       store = YAML::Store.new('data/store.yml')
-       store.transaction do
-        store.roots.each do |current|
-        if store[current][:name] = show
-          puts store[current]
-        end
-        end
-    end
+       #store = YAML::Store.new('data/store.yml')
+        Store::show(show)
 
       end
     end
