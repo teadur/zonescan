@@ -22,7 +22,7 @@ module Zonescan
                       "       #{PROJECT} [options]"
         opts.on('-f', '--files [files]',           Array,     'Comma separated files to check')     { |val| options['files'] = val }
         opts.on('-r', '--record',                    TrueClass, 'Record results')         { |val| options['record'] = val }
-        opts.on('-s', '--show [name]',           Array,     'show saved results of domain')     { |val| options['show'] = val }
+        opts.on('-s', '--show [name]',           String,     'show saved results of domain')     { |val| options['show'] = val }
 
         opts.on_tail('--help') do
           puts opts
@@ -47,11 +47,7 @@ module Zonescan
       puts "show #{show}"
       unless show.nil?
         puts "access datastore and find domain(s)"
-
-       # TODO: move to different class/file
-       #store = YAML::Store.new('data/store.yml')
-        Zonescan::Store.show("neti.ee")
-        #show("neti.ee")
+        Zonescan::Store.show(show)
 
 
       end
