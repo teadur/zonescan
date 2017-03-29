@@ -1,6 +1,6 @@
 module Zonescan
   # Zonescan:Httpscan
-  class Httpscan < Base
+  class Httpscan
     def self.check(url)
       # url = "internet.ee"
       c = Curl::Easy.new(url)

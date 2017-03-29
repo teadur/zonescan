@@ -1,14 +1,16 @@
+require 'zonescan/store'
+
 # Zonescan Module
 module Zonescan
   # Zonescan::Cli
-  class Cli
-    #class << self
+  # class Cli
+    class << self
     #attr_accessor :Failed
     #attr_accessor :Completed
     #attr_accessor :Untested
     #end
 
-    def self.run
+    def cli()
       require 'optparse'
 
       ARGV << '-h' if ARGV.empty?
@@ -36,7 +38,7 @@ module Zonescan
         end
       end
       show = options['show']
-
+      run
       puts "cli #{files}"
       puts "show #{show}"
       unless show.nil?

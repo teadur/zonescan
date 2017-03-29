@@ -1,15 +1,17 @@
 module Zonescan
   # Base class for Zonescan
-  class Domain < Base
-    def self.domain
+  #class Domain < Base
+  class << self
+    #attr_accessor :Untested
+    def domain
       processed_source.sample
     end
 
-    def self.domains(n = 5)
+    def domains(n = 5)
       processed_source.sample(n)
     end
 
-    def self.validate(name = 'test')
+    def validate(name = 'test')
       if name['.'].nil?
         # puts "missing dot"
         return false
@@ -22,7 +24,7 @@ module Zonescan
       end
     end
 
-    def self.resolv(name)
+    def resolv(name)
       Resolv.getaddress(name)
       return true
     rescue
@@ -30,9 +32,10 @@ module Zonescan
       return false
     end
 
-    def self.domains_all
+    def domains_all
+      @Untested = Array[]
       processed_source.each do |item|
-        Untested.push(item)
+        @Untested.push(item)
         puts item
       end
     end
