@@ -11,6 +11,7 @@ module Zonescan
     end
 
     def validate(name = 'test')
+      # puts "validate: #{name}"
       if name['.'].nil?
         # puts "missing dot"
         return false
@@ -27,15 +28,27 @@ module Zonescan
       Resolv.getaddress(name)
       return true
     rescue
+      # TODO: return actual error
       puts "doesnot resolve #{name}"
       return false
     end
 
-    def domains_all
+    def domains_all(list=nil)
       @untested = Array[]
-      processed_source.each do |item|
-        @untested.push(item)
-        puts item
+      if list != ""
+         list = list.split(",")
+      #  puts "lõhume siin"
+      #  puts "list: #{list}"
+        list.each do |item|
+          @untested.push(item)
+          # puts "@untested: #{@untested}"
+        end
+
+      else
+        processed_source.each(list) do |item|
+          @untested.push(item)
+          # puts item
+        end
       end
     end
   end

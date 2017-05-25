@@ -6,8 +6,26 @@ module Zonescan
       @source ||= read
     end
 
-    def processed_source
-      @processed_source ||= source.split("\n").uniq
+    def list
+      @list = new Array[]
+    end
+
+    def processed_source(list=nil)
+#      puts "processed source!"
+#      puts list
+      if list.nil?
+        # Lets read from file stream
+        @processed_source ||= source.split("\n").uniq
+      else
+        # Lets read from input
+        # puts @list
+        # list = list.split(",")
+        # @list =
+        # puts list.class
+        # puts list
+        @processed_source ||= list
+
+      end
     end
 
     def read
@@ -27,17 +45,25 @@ module Zonescan
       exit 1
     end
 
-    def run(files)
+    def run(files, list=nil)
       @files = files
       @failed = Array[]
       @completed = Array[]
       @untested = Array[]
       beginning_time = Time.now
+      # puts "run: #{list}"
 
       # puts __FILE__
-      execute = domains_all
+      if list.nil?
+        execute = domains_all
+      else
+        execute = domains_all(list)
+      end
+
       total = execute.count
+
       @untested.each do |name|
+        # puts "untested.each #{name}"
         if validate(name) == true
           # puts "debug: lets call out scanner for that name #{name}"
           rvalue =  Httpscan.check(name).to_i
@@ -58,14 +84,24 @@ module Zonescan
         end
 
       end
+      # if the input is from filesystem write to output to filesystem
+      if list.nil?
       Zonescan::Store.write(@completed)
       Zonescan::Store.write(@failed)
+      end
       # TODO: implement debug/verbose flag
       # puts "Total: #{total}\nFailed (#{@Failed.count}): #{@Failed} \n"
-      # puts "Completed(#{@Completed.count}): #{@Completed}"
+      # puts "Completed(#{@completed.count}): #{@completed}"
       puts "Total: #{total} Failed: (#{@failed.count}) Completed: #{@completed.count}"
       end_time = Time.now
-      puts "Time elapsed #{(end_time - beginning_time)} seconds"
+      totaltime = (end_time - beginning_time)
+      # puts "Time elapsed #{(end_time - beginning_time)} seconds"
+      puts "Time elapsed #{totaltime} seconds";
+      return @completed,@failed,totaltime
+
+      # TODO: decide if sending back object hash would be better
+      # vastus = { id: 1}
+      # return vastus
     end # Method run end
   end # Class end
 end

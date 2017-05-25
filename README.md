@@ -1,20 +1,25 @@
 # Zonescan
 
 zonescan - Zone Scan
+
 simple cli utility to scan provided list of domains for running services
 
+Usable as gem Zonescan.run(nil,'1domain.tld','2domain.tld')
+
 ## TODO:
-*take file(txt/csv/zonefile) as input.
+* take file(txt/csv/zonefile) as input.
 
-*try to access resolved domain via http(s) and record the response_code
+* try to access resolved domain via http(s) and record the response_code
 
-*figure out if domain is dnssec signed
+* improve dns output
 
-*find / add other services to check for
+* figure out if domain is dnssec signed
 
-*output domain lists from results
+* find / add other services to check for
 
-*output statistics of the results
+* output domain lists from results
+
+* output statistics of the results
 
 ## Installation
 
