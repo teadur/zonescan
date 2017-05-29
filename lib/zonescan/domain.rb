@@ -17,9 +17,12 @@ module Zonescan
         return false
       else
         # check if the name resolves
-        if resolv(name).equal?(true)
+        dns_result = resolv(name)
+        if dns_result.equal?(true)
+          # puts "resolv: #{resolv(name)}"
           return true
-        else return false
+        else
+          return dns_result
         end
       end
     end
@@ -27,25 +30,24 @@ module Zonescan
     def resolv(name)
       Resolv.getaddress(name)
       return true
-    rescue
-      # TODO: return actual error
-      puts "doesnot resolve #{name}"
-      return false
+    rescue Resolv::ResolvError => e
+      # ap e.message
+      # TODO: validate dnssec
+      # ap Resolv
+      # puts "doesnot resolve #{name}"
+      return e.message
     end
 
     def domains_all(list=nil)
       @untested = Array[]
-      if list != ""
+      if list != nil
          list = list.split(",")
-      #  puts "lõhume siin"
-      #  puts "list: #{list}"
         list.each do |item|
           @untested.push(item)
-          # puts "@untested: #{@untested}"
         end
 
       else
-        processed_source.each(list) do |item|
+        processed_source.each do |item|
           @untested.push(item)
           # puts item
         end

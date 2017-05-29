@@ -39,8 +39,10 @@ module Zonescan
 
           # puts "Storing: #{current}"
           extended = current
-          # TODO: Handle Failed/Completed correctly
+          # awesome_print extended
+          if extended[:http_code]
           extended[:status] = 'Completed'
+          end
           extended[:id] = id
           store[id] = extended
           puts "Stored: #{store[id]}"

@@ -11,18 +11,12 @@ module Zonescan
     end
 
     def processed_source(list=nil)
-#      puts "processed source!"
-#      puts list
+
       if list.nil?
         # Lets read from file stream
         @processed_source ||= source.split("\n").uniq
       else
         # Lets read from input
-        # puts @list
-        # list = list.split(",")
-        # @list =
-        # puts list.class
-        # puts list
         @processed_source ||= list
 
       end
@@ -63,22 +57,35 @@ module Zonescan
       total = execute.count
 
       @untested.each do |name|
+        dns = validate(name)
+        # puts "#{name} - #{dns}"
         # puts "untested.each #{name}"
-        if validate(name) == true
+        if dns == true
           # puts "debug: lets call out scanner for that name #{name}"
+          # puts dns
           rvalue =  Httpscan.check(name).to_i
+          # TODO: Handle https check result to status
+          https = Httpscan.check_https(name)
+          # puts "https: #{https}"
           # add domains with return code 200-500 to Completed list
           # TODO: Figure out exact return codes i care about
           result = Hash.new
           result[:name] = name
-          result[:rcode] = rvalue
+          result[:http_code] = rvalue
+          result[:https] = https
           result[:time] = Time.now
+          result[:dns] = dns
           @completed.push(result) if rvalue >= 200 && rvalue <= 500
+          # @failed.push(result) if rvalue <= 199 && rvalue <= 501
         else
           result = Hash.new
           result[:name] = name
-          result[:reason] = 'Unknown'
+          # result[:reason] = 'Unknown'
+          result[:dns] = dns
+          result[:http_code] = false
+          result[:https] = false
           result[:time] = Time.now
+          result[:status] = "Failed"
           @failed.push(result)
           # puts "debug: remove name from uncompleted list / add it to failed list #{name}"
         end
@@ -92,12 +99,13 @@ module Zonescan
       # TODO: implement debug/verbose flag
       # puts "Total: #{total}\nFailed (#{@Failed.count}): #{@Failed} \n"
       # puts "Completed(#{@completed.count}): #{@completed}"
-      puts "Total: #{total} Failed: (#{@failed.count}) Completed: #{@completed.count}"
+      stats = "Total: #{total} Failed: (#{@failed.count}) Completed: #{@completed.count}"
+      puts stats
       end_time = Time.now
       totaltime = (end_time - beginning_time)
       # puts "Time elapsed #{(end_time - beginning_time)} seconds"
       puts "Time elapsed #{totaltime} seconds";
-      return @completed,@failed,totaltime
+      return @completed,@failed,totaltime,stats
 
       # TODO: decide if sending back object hash would be better
       # vastus = { id: 1}
