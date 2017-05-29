@@ -9,3 +9,4 @@ viies.ee
 sodi
 dnssec.ee
 123fail.ee
+katki.ee
