@@ -3,6 +3,7 @@ module Zonescan
   class Httpscan
     # TODO: implement debug/verbose output
     def self.check(url)
+      puts "check_http #{url}"
       c = Curl::Easy.new(url)
       # c.verbose = true
       c.perform
@@ -13,6 +14,7 @@ module Zonescan
     # Check https
     # TODO: Gather/Store certificate data
     def self.check_https(url)
+      puts "check_https #{url}"
       errors =""
       url = "https://" + url
       c = Curl::Easy.new(url)
